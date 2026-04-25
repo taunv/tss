@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <script>
+        (function () {
+            // ====== CẤU HÌNH ======
+            const BASE_URL = "https://script.google.com/macros/s/AKfycbwKyE88FWTX__W5htclQ3yaCNmRymeE-rXuuIMF4sOpvZXHrt9kBPfS_AoKBqcJFgasqA/exec";
+
+            // ====== GIỮ QUERY PARAM ======
+            const query = window.location.search || "";
+
+            // ====== URL CUỐI ======
+            const finalUrl = BASE_URL + query;
+
+            // ====== TRACK EVENT TRƯỚC KHI REDIRECT ======
+            if (typeof gtag === "function") {
+                gtag('event', 'redirect', {
+                    event_category: 'outbound',
+                    event_label: finalUrl,
+                    transport_type: 'beacon' // đảm bảo gửi trước khi rời trang
+                });
+            }
+
+            // ====== DELAY NHẸ ĐỂ GA GHI NHẬN ======
+            setTimeout(function () {
+                window.location.href = finalUrl;
+            }, 150); // 100–300ms là hợp lý
+        })();
+    </script>
+
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbwKyE88FWTX__W5htclQ3yaCNmRymeE-rXuuIMF4sOpvZXHrt9kBPfS_AoKBqcJFgasqA/exec">
+    </noscript>
+</head>
+
+<body>
+    <p>Đang chuyển hướng... Nếu không tự động, hãy bấm vào link dưới:</p>
+    <a id="manualLink" href="#">Tiếp tục</a>
+
+    <script>
+        // Cập nhật link thủ công (fallback)
+        const base = "https://script.google.com/macros/s/AKfycbwKyE88FWTX__W5htclQ3yaCNmRymeE-rXuuIMF4sOpvZXHrt9kBPfS_AoKBqcJFgasqA/exec";
+        document.getElementById("manualLink").href = base + (window.location.search || "");
+    </script>
+</body>
+</html>
